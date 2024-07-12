@@ -66,4 +66,4 @@ jobs:
         with:
           app-name: 'pmine'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_CFA1DB57276C4005B8D3617450373A28 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_8B228A1B7CF640AE865D9DBA93C637B7 }}
