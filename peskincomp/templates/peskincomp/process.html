@@ -1,0 +1,138 @@
+{%extends "peskincomp/template.html"%}
+
+{%block body%}
+<script>
+
+    var url = "{{url}}"
+    var script = "script"
+    console.log(url)
+
+    document.addEventListener("DOMContentLoaded", load);
+
+    function load() {
+        fetch(`${url}/v3/app/{{rid}}`)
+            .then(response => response.json())
+            .then(data => {
+                data.skins.forEach(render);
+            });
+    }
+
+    document.addEventListener("click", function (event) {
+        if (event.target.matches('.skins')) {
+            inner(event.target);
+        }
+    });
+
+    function render(cont) {
+        const title = document.createElement("div");
+        title.classList.add("nav-item");
+        title.innerHTML = `<a data-id="${cont.id}" class="btn btn-outline-secondary skins" style="width: 100%">${cont.name}</a>`;
+        document.querySelector('#skins').appendChild(title);
+    }
+
+    function inner(button) {
+        fetch(`${url}/v3/app/getprop/${button.dataset.id}`)
+            .then(response => response.json())
+            .then(data => {
+                const changenameurl = `${url}/v3/process/${button.dataset.id}/changename`;
+                const changemodelurl = `${url}/v3/process/${button.dataset.id}/changemodel`;
+                const deleteskin = `${url}/v3/process/${button.dataset.id}/deleteskin`;
+
+                const content = `
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">${data.name}</h5>
+        <p class="card-text"><label>{{trans.model}}</label>:${data.model}</p>
+        <canvas id="skin_container"></canvas>
+        <form action="${changenameurl}" method="post" style="padding-top:30px">
+            {% csrf_token %}
+            <label><b>{{trans.skin_name}}</b></label>
+            <input type="text" name="name">
+            <input type="submit" value="{{trans.apply}}">
+        </form>
+        <form action="${changemodelurl}" method="post">
+            {% csrf_token %}
+            <label><b>{{trans.model}}</b></label>
+            <select name="model" id="model">
+                <option value="geometry.humanoid.custom"></option>
+                <option value="geometry.humanoid.custom">Steve</option>
+                <option value="geometry.humanoid.customSlim">Alex</option>
+            </select>
+            <input type="submit" value="{{trans.apply}}">
+        </form>
+        <form action="${deleteskin}" method="post">
+            {% csrf_token %}
+            <th scope="row"><label>{{trans.delete_this_file}}</label></th>
+            <td><input type="submit" value="{{trans.delete_this_file}}"></td>
+        </form>
+    </div>
+</div>
+`;
+
+                document.querySelector('#cont').innerHTML = content;
+
+                let skinViewer = new skinview3d.SkinViewer({
+                    canvas: document.getElementById("skin_container"),
+                    width: 300,
+                    height: 400,
+                    skin: `{{url}}/v3/picture/${data.id}`
+                })
+
+                form();
+            }); 
+    }
+
+    function form() {
+        var forms = document.querySelectorAll('form');
+
+        forms.forEach(function (form) {
+            form.addEventListener('submit', function (event) {
+                event.preventDefault();
+
+                var formData = new FormData(form);
+                var csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+                var headers = new Headers({
+                    'X-CSRFToken': csrfToken
+                });
+
+                fetch(form.action, {
+                    method: 'POST',
+                    headers: headers,
+                    body: formData,
+                    credentials: 'include'
+                })
+                    .then(function (response) {
+                        return response.json();
+                    })
+                    .then(function (data) {
+                        console.log(data);
+                        location.reload();
+                    })
+                    .catch(function (error) {
+                        console.error('Error:', error);
+                    });
+            });
+        });
+    };
+
+</script>
+<div class="row">
+    <div class="col-md-4">
+        <!-- Skins list -->
+        <div id="skins" class="nav flex-column nav-pills" aria-orientation="vertical">
+            <!-- Skins will be appended here by the JavaScript -->
+        </div>
+        <!-- Link for compression -->
+        <a href="{{url}}/v3/getcompress/{{rid}}" class="btn btn-primary mt-3" style="width: 100%">{{trans.download}}</a>
+        <!-- Additional link -->
+        <a href="add" class="btn btn-{{pageprop.color}} active mt-3" style="width: 100%">{{trans.add}}</a>
+    </div>
+    <div class="col-md-8">
+        <!-- Content area -->
+        <div id="cont">
+            <!-- Content will be displayed here when a skin is clicked -->
+        </div>
+    </div>
+</div> 
+
+{%endblock%}

@@ -1,0 +1,108 @@
+{%extends "index/en/template.html"%}
+
+{%block body%}
+<div class="cont">
+    <div class="container px-4 py-5" id="hanging-icons" style="margin-top: 40px">
+        <h2 class="pb-2 border-bottom">Minecraft Tools</h2>
+        <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+            <div class="col d-flex align-items-start">
+                <div>
+                    <h3 class="fs-2 text-body-emphasis">Skin pack creator</h3>
+                    <p>Upload your skins here, so that we are able to give a compressed, .mcpack formatted archive</p>
+                    <a href="skincomp" class="btn btn-{{pageprop.color}}">
+                        Start
+                    </a>
+                </div>
+            </div>
+            <div class="col d-flex align-items-start">
+                <div>
+                    <h3 class="fs-2 text-body-emphasis">Minecraft Skin Preview</h3>
+                    <p>You could easily make the preview image or preview your skin here. Multiple backgrounds are
+                        provided </p>
+                    <a href="skinview" class="btn btn-{{pageprop.color}}">
+                        Start
+                    </a>
+                </div>
+            </div>
+            <div class="col d-flex align-items-start">
+                <div>
+                    <h3 class="fs-2 text-body-emphasis">UUID Generator</h3>
+                    <p>You can click here to generate UUID, UUID can be placed in Minecraft resources to be a part of
+                        the manifest</p>
+                    <a href="uuid" class="btn btn-{{pageprop.color}}">
+                        Start
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container px-4 py-5" id="hanging-icons">
+        <h2 class="pb-2 border-bottom">Typesetting Tools</h2>
+        <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+            <div class="col d-flex align-items-start">
+                <div>
+                    <h3 class="fs-2 text-body-emphasis">BBCode Typesettings</h3>
+                    <p>Select template and fill it to generate. It's availiable on all forums that support BBCode (e.g.
+                        MCBBS)</p>
+                    <a href="bbcode" class="btn btn-{{pageprop.color}}">
+                        Start
+                    </a>
+                </div>
+            </div>
+            <div class="col d-flex align-items-start">
+                <div>
+                    <h3 class="fs-2 text-body-emphasis">BBCode Editer</h3>
+                    <p>You can use visual BBCode editer here, it can use buttons to generate templates</p>
+                    <a href="https://editbbcode.pmine.org" class="btn btn-{{pageprop.color}}">
+                        Start
+                    </a>
+                </div>
+            </div>
+
+            <div class="col d-flex align-items-start">
+                <div>
+                    <h3 class="fs-2 text-body-emphasis">Interactive BBCode Designer</h3>
+                    <p>You can use the Index function of BBCode to interact with friends on forums (e.g. MCBBS)</p>
+                    <a href="#" class="btn btn-{{pageprop.color}} disabled">
+                        Developing...
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container px-4 py-5" id="hanging-icons">
+        <h2 class="pb-2 border-bottom">General Tools</h2>
+        <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+            <div class="col d-flex align-items-start">
+                <div>
+                    <h3 class="fs-2 text-body-emphasis">QR Code Maker</h3>
+                    <p>Select template and fill it to generate. It's availiable on all forums that support BBCode (e.g.
+                        MCBBS)</p>
+                    <a href="https://qrcodegen.pmine.org" class="btn btn-{{pageprop.color}}">
+                        Start
+                    </a>
+                </div>
+            </div>
+            <div class="col d-flex align-items-start">
+                <div>
+                    <h3 class="fs-2 text-body-emphasis">Markdown Viewer</h3>
+                    <p>Edit and view Markdown here, or convert it into HTML or PDF for publishing purposes </p>
+                    <a href="https://pmine.org/viewmd" class="btn btn-{{pageprop.color}}">
+                        Start
+                    </a>
+                </div>
+            </div>
+            <div class="col d-flex align-items-start">
+                <div>
+                    <h3 class="fs-2 text-body-emphasis">Math Tools</h3>
+                    <p>Developing...</p>
+                    <a href="#" class="btn btn-{{pageprop.color}} disabled">
+                        Developing
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{%endblock%}
